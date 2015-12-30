@@ -2,12 +2,7 @@ require('babel-regenerator-runtime')
 
 import csp from 'js-csp'
 
-// export {
-// 	createStore,
-// 	// loadActions,
-// }
-
-export function createStore(initialState, actions, optionals) {
+function createStore(initialState, actions, optionals) {
 	var currentState = initialState
 
 	var actionFunc = {}
@@ -57,6 +52,11 @@ export function createStore(initialState, actions, optionals) {
 		actions: actionName
 	}
 }
+
+module.exports = {
+	createStore,
+}
+
 
 // function loadActions(folder) {
 // 	var actionModules = require.context('./actions/', true, /\.js$/)
