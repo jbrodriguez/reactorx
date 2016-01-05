@@ -1,6 +1,9 @@
 require('babel-regenerator-runtime')
-
 import csp from 'js-csp'
+
+module.exports = {
+	createStore,
+}
 
 function createStore(initialState, actions, optionals) {
 	var currentState = initialState
@@ -16,11 +19,10 @@ function createStore(initialState, actions, optionals) {
 	actionName["reactorxInit"] = "reactorxInit"
 	actionFunc["reactorxInit"] = _ => currentState
 
-	var callback = null
-
-	var queue = csp.chan(623)
-
 	var optionals = optionals
+
+	var callback = null
+	var queue = csp.chan(623) // this should probably be received as an argument
 
 	function* reactor(queue) {
 		for (;;) {
@@ -29,7 +31,9 @@ function createStore(initialState, actions, optionals) {
 			if (!actionFunc[action.type]) continue
 
 			currentState = actionFunc[action.type]({state: currentState, actions: actionName, dispatch},  optionals, action.params)
-			callback({state: currentState, actions: actionName, dispatch})
+
+			if (callback)
+				callback({state: currentState, actions: actionName, dispatch})
 		}
 	}
 
@@ -52,42 +56,3 @@ function createStore(initialState, actions, optionals) {
 		actions: actionName
 	}
 }
-
-module.exports = {
-	createStore,
-}
-
-
-// function loadActions(folder) {
-// 	var actionModules = require.context('./actions/', true, /\.js$/)
-
-// 	let actions = []
-
-// 	console.log("keys: ", actionModules.keys())
-
-// 	actionModules.keys().forEach( module => {
-// 		console.log('module: ', module)
-// 		let normal = require("path").join("./actions/", __dirname, module)
-// 		console.log('normal: ', normal)
-// 		let testing = './actions/actions'
-// 		let resolved = actionModules.resolve(module)
-// 		console.log('resolved: ', resolved)
-// 		actions = actions.concat(resolved)
-// 	})
-
-// 	return actions
-
-// 	// var fs = require('fs')
-// 	// let normalizedPath = require("path").join(__dirname, folder);
-
-// 	// let actions = []
-
-// 	// console.log('fs: ', fs)
-// 	// console.log('normalizedPath: ', normalizedPath)
-
-// 	// fs.readdirSync(normalizedPath).forEach(function(file) {
-// 	// 	actions = actions.concat(require(folder + file))
-// 	// })
-
-// 	// return actions
-// }
