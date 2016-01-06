@@ -4,6 +4,7 @@ module.exports = {
 	clearCompleted,
 	setFilter,
 	completeTodo,
+	deleteTodo,
 	editTodo,
 }
 
