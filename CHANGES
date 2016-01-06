@@ -1,3 +1,14 @@
+Version 0.3.0 - 2016-01-06
+    - Receive the actions as a single object, the keys (function names) are iterated to create a proxy object for the internal dispatch mechanism
+    - Add a combineAction function to merge all user defined functions into a single object (helper function)
+    - Update the async example
+    - Update the counter demo
+    - Update the todos demo
+    - Update README
+    - Fix example in folder and README
+    - Update package to 0.3.0
+
+
 Version 0.2.0 - 2016-01-06
     - Remove build artifact
     - Hide the dispatch implementation, it lives inside the store now. Now the user of the store can calls functions directly, without going through a dispatch
