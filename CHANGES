@@ -1,3 +1,9 @@
+Version 0.3.1 - 2016-01-06
+    - Fix async example
+    - Fix todos example
+    - Update package to 0.3.1
+
+
 Version 0.3.0 - 2016-01-06
     - Receive the actions as a single object, the keys (function names) are iterated to create a proxy object for the internal dispatch mechanism
     - Add a combineAction function to merge all user defined functions into a single object (helper function)
