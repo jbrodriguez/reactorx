@@ -1,18 +1,31 @@
 module.exports = [
-	{type: "increment", fn: _increment},
-	{type: "decrement", fn: _decrement},
+	{type: "increment", fn: increment},
+	{type: "decrement", fn: decrement},
+	{type: "clicked", fn: clicked}
 ]
 
-function _increment({state, actions, dispatch}, _, delta) {
+function increment({state, actions}, delta) {
+	actions.clicked(1, "hero")
+
 	return {
 		...state,
 		counter: state.counter+delta
 	}
 }
 
-function _decrement({state, actions, dispatch}) {
+function decrement({state, actions}) {
+	actions.clicked(1, "zero")
+
 	return {
 		...state,
 		counter: state.counter-1
+	}
+}
+
+function clicked({state}, times, kind) {
+	return {
+		...state,
+		clicked: state.clicked+times,
+		flash: kind
 	}
 }

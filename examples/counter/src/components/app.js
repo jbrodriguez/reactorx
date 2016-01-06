@@ -10,13 +10,15 @@ import React from 'react'
 // App is a pure function of it's props, so we can
 // define it with a plain javascript function...
 export default function App({store}) {
-	let { state, actions, dispatch } = store
+	let { state, actions } = store
 
 	return (
 		<div>
 			<div>Counter: {state.counter}</div>
-			<button onClick={() => dispatch(actions.increment, 2)}>+2</button>
-			<button onClick={() => dispatch(actions.decrement)}>-</button>
+			<div>Clicked: {state.clicked}</div>
+			<div>Flash: {state.flash}</div>
+			<button onClick={() => actions.increment(2)}>+2</button>
+			<button onClick={() => actions.decrement(1)}>-</button>
 		</div>
 	)
 }
