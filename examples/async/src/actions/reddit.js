@@ -1,18 +1,18 @@
-module.exports = [
-	{type: "fetchPosts", fn: fetchPosts},
-	{type: "postsFetched", fn: postsFetched},
-	{type: "invalidateReddit", fn: invalidateReddit},
-	{type: "selectReddit", fn: selectReddit},
-]
+module.exports = {
+	fetchPosts,
+	postsFetched,
+	invalidateReddit,
+	selectReddit
+}
 
 // the bracket notation [reddit] is a computed property
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer
-function fetchPosts({state, actions, dispatch}, {api}, reddit) {
+function fetchPosts({state, actions}, {api}, reddit) {
 	let posts = state.postsByReddit[reddit]
 
 	if (_shouldFetchPosts(posts)) {
 		api.fetchPosts(reddit)
-			.then(json => dispatch(actions.postsFetched, {reddit, items: json}))
+			.then(json => actions.postsFetched(reddit, json))
 
 		return {
 			...state,
@@ -41,7 +41,7 @@ function _shouldFetchPosts(posts) {
 	return posts.didInvalidate
 }
 
-function postsFetched({state}, _, {reddit, items}) {
+function postsFetched({state}, _, reddit, items) {
 	let posts = state.postsByReddit[reddit]
 
 	return {
@@ -58,7 +58,7 @@ function postsFetched({state}, _, {reddit, items}) {
 	}
 }
 
-function invalidateReddit({state, actions, dispatch}, _, reddit) {
+function invalidateReddit({state}, _, reddit) {
 	let posts = state.postsByReddit[reddit]
 
 	return {
@@ -72,7 +72,7 @@ function invalidateReddit({state, actions, dispatch}, _, reddit) {
 	}	
 }
 
-function selectReddit({state, actions, dispatch}, _, reddit) {
+function selectReddit({state}, _, reddit) {
 	return {
 		...state,
 		selectedReddit: reddit

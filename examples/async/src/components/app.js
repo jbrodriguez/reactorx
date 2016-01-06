@@ -4,21 +4,21 @@ import Posts from './posts'
 
 export default class App extends Component {
 	componentDidMount() {
-		const { state, actions, dispatch } = this.props.store
-		dispatch(actions.fetchPosts, state.selectedReddit)
+		const { state, actions } = this.props.store
+		actions.fetchPosts(state.selectedReddit)
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const { state, actions, dispatch } = this.props.store
+		const { state, actions } = this.props.store
 		const nextReddit = nextProps.store.state.selectedReddit
 
 		if (nextReddit !== state.selectedReddit) {
-			dispatch(actions.fetchPosts, nextReddit)
+			actions.fetchPosts(nextReddit)
 		}
 	}
 
 	render() {
-		const { state, actions, dispatch } = this.props.store
+		const { state, actions } = this.props.store
 
 		const { posts, isFetching, lastUpdated } = state.postsByReddit[state.selectedReddit] || { isFetching: true, posts: [] }
 
@@ -59,16 +59,16 @@ export default class App extends Component {
 	}
 
 	handleChange(nextReddit) {
-		const { actions, dispatch } = this.props.store
-		dispatch(actions.selectReddit, nextReddit)
+		const { selectReddit } = this.props.store.actions
+		selectReddit(nextReddit)
 	}
 
 	handleRefreshClick(e) {
 		e.preventDefault()
 
-		const { state, actions, dispatch } = this.props.store
+		const { state, {invalidateReddit, fetchPosts} } = this.props.store
 
-		dispatch(actions.invalidateReddit, state.selectedReddit)
-		dispatch(actions.fetchPosts, state.selectedReddit)
+		invalidateReddit(state.selectedReddit)
+		fetchPosts(state.selectedReddit)
 	}
 }
