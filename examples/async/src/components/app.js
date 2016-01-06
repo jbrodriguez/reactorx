@@ -66,8 +66,9 @@ export default class App extends Component {
 	handleRefreshClick(e) {
 		e.preventDefault()
 
-		const { state, {invalidateReddit, fetchPosts} } = this.props.store
-
+		const { state, actions } = this.props.store
+		const {invalidateReddit, fetchPosts} = actions
+		
 		invalidateReddit(state.selectedReddit)
 		fetchPosts(state.selectedReddit)
 	}

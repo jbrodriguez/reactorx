@@ -7,7 +7,7 @@ module.exports = {
 
 // the bracket notation [reddit] is a computed property
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer
-function fetchPosts({state, actions}, {api}, reddit) {
+function fetchPosts({state, actions, opts: {api}}, reddit) {
 	let posts = state.postsByReddit[reddit]
 
 	if (_shouldFetchPosts(posts)) {
@@ -41,7 +41,7 @@ function _shouldFetchPosts(posts) {
 	return posts.didInvalidate
 }
 
-function postsFetched({state}, _, reddit, items) {
+function postsFetched({state}, reddit, items) {
 	let posts = state.postsByReddit[reddit]
 
 	return {
@@ -58,7 +58,7 @@ function postsFetched({state}, _, reddit, items) {
 	}
 }
 
-function invalidateReddit({state}, _, reddit) {
+function invalidateReddit({state}, reddit) {
 	let posts = state.postsByReddit[reddit]
 
 	return {
@@ -72,7 +72,7 @@ function invalidateReddit({state}, _, reddit) {
 	}	
 }
 
-function selectReddit({state}, _, reddit) {
+function selectReddit({state}, reddit) {
 	return {
 		...state,
 		selectedReddit: reddit

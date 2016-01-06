@@ -39,7 +39,7 @@ export default class MainSection extends Component {
 	}
 
 	renderToggleAll(completedCount) {
-		let { state, actions, dispatch } = this.props.store
+		let { state, actions } = this.props.store
 
 		if (state.todos.length <= 0) {
 			return
@@ -50,13 +50,13 @@ export default class MainSection extends Component {
 				className="toggle-all"
 				type="checkbox"
 				checked={completedCount === state.todos.length}
-				onChange={() => dispatch(actions.completeAll)}
+				onChange={() => actions.completeAll()}
 			/>
 		)
 	}
 
 	renderFooter(completedCount) {
-		let { state, actions, dispatch } = this.props.store
+		let { state, actions } = this.props.store
 		const { filter, todos } = state
 
 		const activeCount = todos.length - completedCount
@@ -77,17 +77,17 @@ export default class MainSection extends Component {
 	}
 
 	handleClearCompleted() {
-		let { state, actions, dispatch } = this.props.store
+		let { state, actions } = this.props.store
 
 		const atLeastOneCompleted = state.todos.some(TODO_FILTERS[SHOW_COMPLETED])
 		if (atLeastOneCompleted) {
-			dispatch(actions.clearCompleted)
+			actions.clearCompleted()
 		}
 	}
 
 	handleShow(filter) {
-		let { actions, dispatch } = this.props.store
-		dispatch(actions.setFilter, filter)
+		let { setFilter } = this.props.store.actions
+		setFilter(filter)
 	}
 }
 
