@@ -1,13 +1,13 @@
-module.exports = [
-	{type: "addTodo", fn: _addTodo},
-	{type: "completeAll", fn: _completeAll},
-	{type: "clearCompleted", fn: _clearCompleted},
-	{type: "setFilter", fn: _setFilter},
-	{type: "completeTodo", fn: _completeTodo},
-	{type: "editTodo", fn: _editTodo},
-]
+module.exports = {
+	addTodo,
+	completeAll,
+	clearCompleted,
+	setFilter,
+	completeTodo,
+	editTodo,
+}
 
-function _addTodo({state, actions, dispatch}, _, text) {
+function addTodo({state, actions}, text) {
 	return {
 		...state,
 		todos: [
@@ -21,7 +21,7 @@ function _addTodo({state, actions, dispatch}, _, text) {
 	}
 }
 
-function _completeAll({state, actions, dispatch}) {
+function completeAll({state, actions}) {
 	const areAllMarked = state.todos.every(todo => todo.completed)
 
 	return {
@@ -32,21 +32,21 @@ function _completeAll({state, actions, dispatch}) {
 	}
 }
 
-function _clearCompleted({state, actions, dispatch}) {
+function clearCompleted({state, actions}) {
 	return {
 		...state,
 		todos: state.todos.filter( todo => todo.completed === false )
 	}
 }
 
-function _setFilter({state, actions, dispatch}, _, filter) {
+function setFilter({state, actions}, filter) {
 	return {
 		...state,
 		filter
 	}
 }
 
-function _completeTodo({state, actions, dispatch}, _, id) {
+function completeTodo({state, actions}, id) {
 	return {
 		...state,
 		todos: state.todos.map( todo => 
@@ -57,14 +57,14 @@ function _completeTodo({state, actions, dispatch}, _, id) {
 	}
 }
 
-function _deleteTodo({state, actions, dispatch}, _, id) {
+function deleteTodo({state, actions}, id) {
 	return {
 		...state,
 		todos: state.todos.filter( todo => todo.id !== id )
 	}
 }
 
-function _editTodo({state, actions, dispatch}, _, {id, text}) {
+function editTodo({state, actions}, id, text) {
 	return {
 		...state,
 		todos: state.todos.map( todo => 

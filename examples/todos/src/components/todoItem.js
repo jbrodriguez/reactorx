@@ -12,7 +12,7 @@ export default class TodoItem extends Component {
 	}
 
 	render() {
-		const { todo, dispatch, completeTodo, deleteTodo } = this.props
+		const { todo, completeTodo, deleteTodo } = this.props
 
 		let element
 		if (this.state.editing) {
@@ -30,14 +30,14 @@ export default class TodoItem extends Component {
 						className="toggle"
 						type="checkbox"
 						checked={todo.completed}
-						onChange={() => dispatch(completeTodo, todo.id)}
+						onChange={() => completeTodo(todo.id)}
 					/>
 					<label onDoubleClick={this.handleDoubleClick.bind(this)}>
 						{todo.text}
 					</label>
 					<button 
 						className="destroy"
-						onClick={() => dispatch(deleteTodo, todo.id)}
+						onClick={() => deleteTodo(todo.id)}
 					/>
 				</div>
 			)
@@ -55,12 +55,12 @@ export default class TodoItem extends Component {
 	}
 
 	handleSave(id, text) {
-		const { dispatch, deleteTodo, editTodo } = this.props
+		const { deleteTodo, editTodo } = this.props
 
 		if (text.length === 0) {
-			dispatch(deleteTodo, id)
+			deleteTodo(id)
 		} else {
-			dispatch(editTodo, {id, text})
+			editTodo(id, text)
 		}
 
 		this.setState({ editing: false })

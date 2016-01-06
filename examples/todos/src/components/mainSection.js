@@ -14,7 +14,7 @@ const TODO_FILTERS = {
 
 export default class MainSection extends Component {
 	render() {
-		let { state, actions, dispatch } = this.props.store
+		let { state, actions } = this.props.store
 		const { filter, todos } = state
 
 		const filteredTodos = todos.filter(TODO_FILTERS[filter])
@@ -29,7 +29,7 @@ export default class MainSection extends Component {
 
 				<ul className="todo-list">
 					{ filteredTodos.map( todo => 
-						<TodoItem key={todo.id} todo={todo} dispatch={dispatch} {...actions} />
+						<TodoItem key={todo.id} todo={todo} {...actions} />
 					) }
 				</ul>
 
