@@ -1,0 +1,13 @@
+Version 0.1.0 - 2016-01-06
+    Initial commit
+    - Include dist folder
+    - Export an object rather than a function
+    - Check that callback is actually instantiated, before calling it
+    - Remove old code (commented out)
+    - Add async example
+    - Add counter example
+    - Add TodoMVC example
+    - Initial README
+    - Ignore .out files
+
+
