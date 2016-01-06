@@ -1,4 +1,4 @@
-require('babel-regenerator-runtime')
+import 'babel-regenerator-runtime'
 import csp from 'js-csp'
 
 module.exports = {
@@ -12,14 +12,14 @@ function createStore(initialState, actions, optionals) {
 	var actionName = {}
 
 	actions.forEach( action => {
-		actionName[action.type] = action.type
+		actionName[action.type] = (...args) => dispatch(action.type, args)
 		actionFunc[action.type] = action.fn
 	})
 
 	actionName["reactorxInit"] = "reactorxInit"
 	actionFunc["reactorxInit"] = _ => currentState
 
-	var optionals = optionals
+	var opts = optionals
 
 	var callback = null
 	var queue = csp.chan(623) // this should probably be received as an argument
@@ -30,10 +30,10 @@ function createStore(initialState, actions, optionals) {
 
 			if (!actionFunc[action.type]) continue
 
-			currentState = actionFunc[action.type]({state: currentState, actions: actionName, dispatch},  optionals, action.params)
+			currentState = actionFunc[action.type]({state: currentState, actions: actionName, opts}, ...action.args)
 
 			if (callback)
-				callback({state: currentState, actions: actionName, dispatch})
+				callback({state: currentState, actions: actionName})
 		}
 	}
 
@@ -44,9 +44,9 @@ function createStore(initialState, actions, optionals) {
 		// callback({state: currentState, actions: actionName, dispatch})
 	}
 
-	function dispatch(type, params) {
+	function dispatch(type, args) {
 		csp.go(function* () {
-			yield csp.put(queue, {type, params})
+			yield csp.put(queue, {type, args})
 		})
 	}
 
