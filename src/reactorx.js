@@ -3,37 +3,39 @@ import csp from 'js-csp'
 
 module.exports = {
 	createStore,
+	combineActions,
 }
 
-function createStore(initialState, actions, optionals) {
+function createStore(initialState, actions, optionals = {}, capacity = 623) {
 	var currentState = initialState
 
-	var actionFunc = {}
-	var actionName = {}
+	var actions = actions
+	var proxy = {}
 
-	actions.forEach( action => {
-		actionName[action.type] = (...args) => dispatch(action.type, args)
-		actionFunc[action.type] = action.fn
+	Object.keys(actions).forEach( key => {
+		proxy[key] = (...args) => dispatch(key, args)
 	})
 
-	actionName["reactorxInit"] = "reactorxInit"
-	actionFunc["reactorxInit"] = _ => currentState
+	actions["reactorxInit"] = _ => currentState
 
 	var opts = optionals
 
 	var callback = null
-	var queue = csp.chan(623) // this should probably be received as an argument
+	var queue = csp.chan(capacity)
 
 	function* reactor(queue) {
 		for (;;) {
-			var action = yield csp.take(queue)
+			const action = yield csp.take(queue)
 
-			if (!actionFunc[action.type]) continue
+			if (!actions[action.name]) continue
 
-			currentState = actionFunc[action.type]({state: currentState, actions: actionName, opts}, ...action.args)
+			// looks like the spread operator doesn't work on undefined or null
+			const args = action.args || []
+
+			currentState = actions[action.name]({state: currentState, actions: proxy, opts}, ...args)
 
 			if (callback)
-				callback({state: currentState, actions: actionName})
+				callback({state: currentState, actions: proxy})
 		}
 	}
 
@@ -41,18 +43,20 @@ function createStore(initialState, actions, optionals) {
 		callback = cb
 		csp.go(reactor, [queue])
 		dispatch("reactorxInit")
-		// callback({state: currentState, actions: actionName, dispatch})
 	}
 
-	function dispatch(type, args) {
+	function dispatch(name, args) {
 		csp.go(function* () {
-			yield csp.put(queue, {type, args})
+			yield csp.put(queue, {name, args})
 		})
 	}
 
 	return {
 		subscribe,
-		dispatch,
-		actions: actionName
+		actions: proxy
 	}
+}
+
+function combineActions(...actions) {
+	return Object.assign({}, actions)
 }
