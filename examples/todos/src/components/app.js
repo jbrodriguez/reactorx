@@ -13,19 +13,19 @@ import MainSection from './mainSection'
 // App is a pure function of it's props, so we can
 // define it with a plain javascript function...
 export default function App({store}) {
-	let { actions, dispatch } = store
+	let { addTodo } = store.actions
 
 	return (
 		<div>
-			<Header addTodo={_addTodo.bind(null, actions, dispatch)} />
+			<Header addTodo={addTodo} />
 			<MainSection store={store} />
 		</div>
 	)
 }
 
-function _addTodo(actions, dispatch, text) {
-	dispatch(actions.addTodo, text)
-}
+// function _addTodo(actions, dispatch, text) {
+// 	dispatch(actions.addTodo, text)
+// }
 
 
 // export default class App extends Component {
