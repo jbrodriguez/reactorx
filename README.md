@@ -46,8 +46,6 @@ function App({store}) {
     return (
         <div>
             <div>Counter: {state.counter}</div>
-            <div>Clicked: {state.clicked}</div>
-            <div>Flash: {state.mood}</div>
             <button onClick={() => actions.increment(2)}>+2</button>
             <button onClick={() => actions.decrement()}>-</button>
         </div>
