@@ -7,6 +7,14 @@ module.exports = {
 }
 
 function createStore(initialState, actions, optionals = {}, capacity = 623) {
+	if (!initialState || Object.keys(initialState).length === 0) {
+		throw new Error('Initial state must be given to the store')
+	}
+
+	if (!actions || Object.keys(actions).length === 0) {
+		throw new Error('Actions must be given to the store')
+	}
+
 	var currentState = initialState
 
 	var actions = actions
