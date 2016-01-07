@@ -1,17 +1,17 @@
 reactorx
 ========
 
-**reactorx** is a simple, small and pragmatic [Flux](https://facebook.github.io/flux/) implementation.
+`reactorx` is a simple, small and pragmatic [Flux](https://facebook.github.io/flux/) implementation.
 
 ## Features
 - Simple: One store with a state (plain javascript object) that is mutated only by actions (plain javascript functions) you define.
 - Small: Under 65 LOC.
 - Pragmatic: Very practical and terse. No boilerplate.
-- Isomorphic and works with react-native.)
+- Isomorphic and works with react-native.
 
 ## Usage
 
-Let's recreate the counter demo  with **reactorx**
+Let's recreate the counter example
 
 ```
 import React from 'react'
@@ -53,7 +53,6 @@ function App({store}) {
     )
 }
 
-
 let store = createStore(initialState, actions)
 
 store.subscribe( store => {
@@ -76,7 +75,9 @@ npm install --save reactorx js-csp babel-regenerator-runtime
 
 The examples contained in the repo provide a hot-reloadable dev environment based on Webpack and Babel 6.
 
-`createStore`
+
+### createStore
+`createStore(initialState, actions, optionals = {}, capacity = 623)`
 ```
 @param {object} state - Object tree with the initial state of the store
 @param {object} actions - Object with methods that represent actions
@@ -87,17 +88,78 @@ The examples contained in the repo provide a hot-reloadable dev environment base
 The store returned by createStore has the following responsibilities:
 - Holds application state
 - Registers a callback via `subscribe(callback)`
-- Allows state to be mutated via a collection of `actions` (actions property)
+- Allows state to be mutated via a collection of `actions`
 
-The callback function receives the current state of the store and all the actions that are available to be invoked to mutate this state
+The callback function receives the current state of the store and all the actions that can be invoked to mutate this state
 
-Each function that defines an action must have the following signature:
+
+### actions
 `action({state, actions, opts}, ...args)`
-This action ***must*** return a new state.
+
+Actions are defined as methods of an object.
+
+```
+const actions = {
+    addTodo: ({state, actions, opts}, text) => {
+        return {
+            ...state,
+            todos: [
+                 {
+                    id: state.todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
+                    completed: false,
+                    text,
+                },
+                ...state.todos
+            }
+    }
+}
+```
+
+Each method ***must*** return a new state.
 
 This new state can be the same as the previous (just return state) or a new state object with changes.
 
 ***Do not*** modify the state object you receive in the action. Always return a new object.
+
+You can perform any operation within the action, such as
+- Mutate state by creating a new state object with some properties changed
+A common pattern would be
+```
+return {
+    ...state,
+    changedProperty: newValue
+}
+```
+
+- Dispatch other actions
+```
+const actions = {
+    fetchPosts: ({state, actions, {opts: api}, reddit}) => {
+        api.fetchPosts(reddit)
+            .then(json => actions.postsFetched(reddit, json))
+
+        return state
+    },
+
+    postsFetched: ({state, actions, {opts: api}, reddit}) => {
+        let posts = state.postsByReddit[reddit]
+
+        return {
+            ...state,
+            postsByReddit: {
+                ...state.postsByReddit,
+                [reddit]: Object.assign({}, posts, {
+                    isFetching: false,
+                    didInvalidate: false,
+                    posts: items.data.children.map(child => child.data),
+                    lastUpdated: Date.now(),
+                })
+            }
+        }
+    }
+}
+```
+
 
 To interact with the store, you would do the following:
 
@@ -131,3 +193,6 @@ store.actions.decrement()
 # state: 5
 
 ```
+
+## License
+MIT
