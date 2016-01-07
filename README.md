@@ -4,9 +4,10 @@ reactorx
 **reactorx** is a simple, small and pragmatic [Flux](https://facebook.github.io/flux/) implementation.
 
 ## Features
-- Simple: A single store and actions that mutate the state of your app, which is represented by a normal javascript object
-- Small: Under 65 LOC
-- Pragmatic: Define your solution with regular javascript. No need to guess where or how to express your logic
+- Simple: One store with a state (plain javascript object) that is mutated only by actions (plain javascript functions) you define.
+- Small: Under 65 LOC.
+- Pragmatic: Very practical and terse. No boilerplate.
+- Isomorphic and works with react-native.
 
 ## Usage
 
