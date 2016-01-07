@@ -118,7 +118,8 @@ const actions = {
                     text,
                 },
                 ...state.todos
-            }
+            ]
+        }
     }
 }
 ```
@@ -133,6 +134,7 @@ This state can be the same as the previous (just return state) or a new state ob
 
 You can perform any operation within the action, such as
 - Mutate state by creating a new state object with some properties changed
+
 A common pattern would be
 ```
 return {
@@ -151,7 +153,7 @@ const actions = {
         return state
     },
 
-    postsFetched: ({state, actions, {opts: api}, reddit}) => {
+    postsFetched: ({state}, reddit, items}) => {
         let posts = state.postsByReddit[reddit]
 
         return {
