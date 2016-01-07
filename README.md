@@ -87,13 +87,21 @@ The examples contained in the repo provide a hot-reloadable dev environment base
 ```
 The store returned by createStore has the following responsibilities:
 - Holds application state
-- Registers a callback via `subscribe(callback)`
+
+- Registers a callback to notify changes via `subscribe(callback)`
+
 - Allows state to be mutated via a collection of `actions`
 
 The callback function receives the current state of the store and all the actions that can be invoked to mutate this state
-
+```
+function callback({state, actions}) {
+    console.log('state: ', state)
+}
+store.subscribe(callback)
+```
 
 ### actions
+Each action must have the following signature:
 `action({state, actions, opts}, ...args)`
 
 Actions are defined as methods of an object.
@@ -115,26 +123,28 @@ const actions = {
 }
 ```
 
-Each method ***must*** return a new state.
+Each method ***must*** return a state.
 
-This new state can be the same as the previous (just return state) or a new state object with changes.
+This state can be the same as the previous (just return state) or a new state object with changes.
+
 
 ***Do not*** modify the state object you receive in the action. Always return a new object.
+
 
 You can perform any operation within the action, such as
 - Mutate state by creating a new state object with some properties changed
 A common pattern would be
 ```
 return {
-    ...state,
-    changedProperty: newValue
+        ...state,
+        changedProperty: newValue
 }
 ```
 
 - Dispatch other actions
 ```
 const actions = {
-    fetchPosts: ({state, actions, {opts: api}, reddit}) => {
+    fetchPosts: ({state, actions, opts: {api}}, reddit}) => {
         api.fetchPosts(reddit)
             .then(json => actions.postsFetched(reddit, json))
 
