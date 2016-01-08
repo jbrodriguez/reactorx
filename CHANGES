@@ -1,3 +1,21 @@
+Version 0.4.0 - 2016-01-08
+    - Add packages and settings required for testing environment
+    - Add store creation sanity checks
+    - Create tests
+    - Fix copy
+    - Add installation steps and API reference
+    - Update api reference
+    - Small fixes
+    - Fix syntax errors in sample code
+    - Replace babel-regenerator-runtime with babel-polyfill, to ensure any other requirements are met (polyfill ensures this)
+    - Update README
+    - Replace regenerator-runtime with polyfill
+    - New dist version
+    - Create universal app example
+    - Make adjustement to async example (reduce amount of boilerplate in the toolchain)
+    - Update package version
+
+
 Version 0.3.1 - 2016-01-06
     - Fix async example
     - Fix todos example
