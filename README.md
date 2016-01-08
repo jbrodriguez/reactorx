@@ -19,11 +19,12 @@ import { render } from 'react-dom'
 
 import { createStore } from 'reactorx'
 
-// Define an plain object tree as the state of your application
+// Define a plain object tree as the state of your application
 let initialState = {
     counter: 0,
 }
 
+// actions are defined as methods of an object
 let actions = {
     increment: ({state, actions}, delta) => {
         return { 
@@ -40,7 +41,7 @@ let actions = {
     },
 }
 
-// Let's leverage React's Stateless Functions:
+// Let's use React to render the user interface
 // https://facebook.github.io/react/docs/reusable-components.html#stateless-functions
 function App({store}) {
     let { state, actions } = store
@@ -57,7 +58,7 @@ function App({store}) {
 // Create the store
 let store = createStore(initialState, actions)
 
-// Define a callback and subscribe it to receive changes to the state
+// Define a callback to receive changes to the state
 store.subscribe( store => {
     render(
         <App store={store} />,
@@ -67,7 +68,7 @@ store.subscribe( store => {
 ```
 
 ## Installation
-**reactorx** has is built on top of [js-csp] (https://github.com/ubolonton/js-csp), so make sure to install it.
+`reactorx` is built on top of [js-csp] (https://github.com/ubolonton/js-csp), so make sure to install it.
 
 ```
 npm install --save reactorx js-csp
@@ -129,7 +130,7 @@ const actions = {
 
 Each method ***must*** return a state.
 
-This state can be the same as the previous (just return state) or a new state object with changes.
+This state can be the same as the previous one (just return state) or a new state object with changes.
 
 
 ***Do not*** modify the state object you receive in the action. Always return a new object.
@@ -176,7 +177,7 @@ const actions = {
 ```
 Notice how you invoke the actions (`actions.postsFetched(reddit, json)`) without the first argument of the signature ({state, actions, opts}).
 
-This is because the framework adds it automatically..
+This is because the framework adds it automatically.
 
 
 ## Universal app
@@ -191,7 +192,6 @@ app.use( (req, res) => {
     let store = createStore({counter}, actions)
 
     store.subscribe( store => {
-        console.log('store: ', store)
         const html = renderToString(<App store={store} />)
     
         res.set("Content-Type", "text/html")
@@ -228,7 +228,10 @@ store.subscribe( store => {
     )
 })
 ```
+## Examples
+Check the [examples](examples/) folder for additional demos.
 
+[unBALANCE](https://github.com/jbrodriguez/unbalance) is an app that uses `reactorx`. Check the code for a real world example. 
 
 ## License
 MIT
