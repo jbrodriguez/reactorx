@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore } from '../../../dist/reactorx'
+import { createStore } from 'reactorx'
 
 import App from './components/app'
 import Api from './lib/api'
