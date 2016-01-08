@@ -1,3 +1,8 @@
+Version 0.4.2 - 2016-01-08
+    - Fix distribution
+    - Update version to 0.4.2
+
+
 Version 0.4.1 - 2016-01-08
     - Adjust examples
     - Remove babel-regenerator-runtime explicit dependency
