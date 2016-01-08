@@ -153,7 +153,7 @@ const actions = {
         return state
     },
 
-    postsFetched: ({state}, reddit, items}) => {
+    postsFetched: ({state}, reddit, items) => {
         let posts = state.postsByReddit[reddit]
 
         return {
@@ -171,6 +171,7 @@ const actions = {
     }
 }
 ```
+Notice how you invoke the actions without the first argument of the signature ({state, actions, opts}). This is because the framework adds it automatically.
 
 
 To interact with the store, you would do the following:
