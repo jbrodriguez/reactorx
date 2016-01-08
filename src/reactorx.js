@@ -1,4 +1,4 @@
-import 'babel-regenerator-runtime'
+import 'babel-polyfill'
 import csp from 'js-csp'
 
 module.exports = {

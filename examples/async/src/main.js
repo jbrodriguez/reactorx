@@ -1,8 +1,6 @@
-import 'babel-polyfill'
-
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore } from 'reactorx'
+import { createStore } from '../../../dist/reactorx'
 
 import App from './components/app'
 import Api from './lib/api'
