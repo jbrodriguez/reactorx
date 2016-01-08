@@ -5,9 +5,9 @@ reactorx
 
 ## Features
 - Simple: One store with a state (plain javascript object) that is mutated only by actions (plain javascript functions) you define.
-- Small: Under 65 LOC.
+- Small: Around 70 LOC.
 - Pragmatic: Very practical and terse. No boilerplate.
-- Isomorphic and works with react-native.
+- Universal/Isomorphic and works with react-native.
 
 ## Usage
 
@@ -19,10 +19,12 @@ import { render } from 'react-dom'
 
 import { createStore } from 'reactorx'
 
+// Define a plain object tree as the state of your application
 let initialState = {
     counter: 0,
 }
 
+// actions are defined as methods of an object
 let actions = {
     increment: ({state, actions}, delta) => {
         return { 
@@ -39,7 +41,7 @@ let actions = {
     },
 }
 
-// Let's leverage React's Statelesss Functions:
+// Let's use React to render the user interface
 // https://facebook.github.io/react/docs/reusable-components.html#stateless-functions
 function App({store}) {
     let { state, actions } = store
@@ -53,8 +55,10 @@ function App({store}) {
     )
 }
 
+// Create the store
 let store = createStore(initialState, actions)
 
+// Define a callback to receive changes to the state
 store.subscribe( store => {
     render(
         <App store={store} />,
@@ -64,10 +68,10 @@ store.subscribe( store => {
 ```
 
 ## Installation
-**reactorx** has two dependencies, install them as well
+`reactorx` is built on top of [js-csp] (https://github.com/ubolonton/js-csp), so make sure to install it.
 
 ```
-npm install --save reactorx js-csp babel-regenerator-runtime
+npm install --save reactorx js-csp
 ```
 
 ## API
@@ -92,7 +96,7 @@ The store returned by createStore has the following responsibilities:
 
 - Allows state to be mutated via a collection of `actions`
 
-The callback function receives the current state of the store and all the actions that can be invoked to mutate this state
+The subscribe callback function receives the current state of the store and all the actions that can be invoked to mutate this state
 ```
 function callback({state, actions}) {
     console.log('state: ', state)
@@ -126,7 +130,7 @@ const actions = {
 
 Each method ***must*** return a state.
 
-This state can be the same as the previous (just return state) or a new state object with changes.
+This state can be the same as the previous one (just return state) or a new state object with changes.
 
 
 ***Do not*** modify the state object you receive in the action. Always return a new object.
@@ -171,41 +175,63 @@ const actions = {
     }
 }
 ```
-Notice how you invoke the actions without the first argument of the signature ({state, actions, opts}). This is because the framework adds it automatically.
+Notice how you invoke the actions (`actions.postsFetched(reddit, json)`) without the first argument of the signature ({state, actions, opts}).
+
+This is because the framework adds it automatically.
 
 
-To interact with the store, you would do the following:
+## Universal app
+Something like the following, allows you to build a universal application
 
+server.js
 ```
-// Define an plain object tree as the state of your application
-let initialState = { counter: 0 }
+...
+app.use( (req, res) => {
+    const counter = req.query.counter || 0
 
-// Define an object with methods that serve as actions 
-let actions = {
-    increment: ({state}, delta) => return state.counter+delta
-    decrement: ({state}) => return state.counter-1 
-}
+    let store = createStore({counter}, actions)
 
-// Create the store
+    store.subscribe( store => {
+        const html = renderToString(<App store={store} />)
+    
+        res.set("Content-Type", "text/html")
+        res.send(`
+            <!doctype html>
+            <html>
+                <head><title>reactorx universal example</title></head>
+                <body>
+                    <div id="mnt">${html}</div>
+                    <script>
+                        window.__INITIAL_STATE__ = ${JSON.stringify(store.state)}
+                    </script>
+                    <script src="/static/bundle.js"></script>
+                </body>
+            </html>
+        `)
+    })
+})
+...
+```
+
+client.js
+```
+...
+let initialState = window.__INITIAL_STATE__
+
 let store = createStore(initialState, actions)
 
-// Define a callback and subscribe it to receive changes to the state
 store.subscribe( store => {
-    console.log('state: ' , store.state)
+    render(
+        <App store={store} />,
+        document.getElementById('mnt')
+
+    )
 })
-
-// Dispatch actions using only the arguments required by your business logic.
-// reactorx adds the {state, actions, opts} argument automatically upon invocation of your action handler
-store.actions.increment(1)
-# state: 1
-
-store.actions.increment(5)
-# state: 6
-
-store.actions.decrement()
-# state: 5
-
 ```
+## Examples
+Check the [examples](examples/) folder for additional demos.
+
+[unBALANCE](https://github.com/jbrodriguez/unbalance) is an app that uses `reactorx`. Check the code for a real world example. 
 
 ## License
 MIT

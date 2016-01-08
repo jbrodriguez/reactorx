@@ -9,7 +9,7 @@ import config 				from '../webpack.config'
 import React 				from 'react'
 import { renderToString } 	from 'react-dom/server'
 
-import { createStore } 		from '../../../dist/reactorx'
+import { createStore } 		from 'reactorx'
 import actions 				from '../common/actions/counter'
 import App 					from '../common/components/app'
 

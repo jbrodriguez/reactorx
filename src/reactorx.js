@@ -66,5 +66,5 @@ function createStore(initialState, actions, optionals = {}, capacity = 623) {
 }
 
 function combineActions(...actions) {
-	return Object.assign({}, actions)
+	return Object.assign({}, ...actions)
 }
