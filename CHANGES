@@ -1,3 +1,13 @@
+Version 0.4.1 - 2016-01-08
+    - Adjust examples
+    - Remove babel-regenerator-runtime explicit dependency
+    - Fix copy
+    - Fix the helper function
+    - Add unBALANCE real world example
+    - Add how to run instructions to all examples
+    - Update version to 0.4.1
+
+
 Version 0.4.0 - 2016-01-08
     - Add packages and settings required for testing environment
     - Add store creation sanity checks
