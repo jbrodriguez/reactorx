@@ -1,3 +1,13 @@
+Version 0.5.0 - 2016-01-11
+    - Add script to regenerate js-csp > es5 into the src folder
+    - Add build script to first babel the src, then regenerate it, for es5 compatibility. The end user still needs to require regenerator
+    - Read the js-csp dependency from the local folder rather than modules. The local folder has an es5 compat version of js-csp (generated on the fly from node_modules with regenerator)
+    - Ignore some folders
+    - Build artifacts
+    - Update README
+    Release 0.5.0
+
+
 Version 0.4.2 - 2016-01-08
     - Fix distribution
     - Update version to 0.4.2
