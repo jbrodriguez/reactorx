@@ -1,3 +1,9 @@
+Version 0.5.1 - 2016-01-12
+    - Remove unneeded dependencies from examples build scripts
+    - Update installation instructions (regenerator is taken care of by babel)
+    Release 0.5.1
+
+
 Version 0.5.0 - 2016-01-11
     - Add script to regenerate js-csp > es5 into the src folder
     - Add build script to first babel the src, then regenerate it, for es5 compatibility. The end user still needs to require regenerator
