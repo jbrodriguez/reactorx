@@ -17,10 +17,10 @@
   ],
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean && babel src --source-maps inline --presets es2015 --out-dir tmp && regenerator tmp dist",
+    "build": "npm run clean && regenerator src tmp && babel tmp --source-maps inline --presets es2015 --out-dir dist",
     "csp": "regenerator node_modules/js-csp/src src/js-csp",
     "clean": "rimraf dist && rimraf tmp",
-    "prepublish": "npm run clean && npm run build",
+    "prepublish": "npm run build",
     "test": "mocha --compilers js:babel-core/register --recursive"
   },
   "devDependencies": {
