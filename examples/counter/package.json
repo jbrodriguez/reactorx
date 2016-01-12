@@ -13,7 +13,7 @@
   "dependencies": {
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
-    "reactorx": "git://github.com/jbrodriguez/reactorx.git"
+    "reactorx": "^0.5.3"
   },
   "devDependencies": {
     "babel-cli": "^6.3.17",
