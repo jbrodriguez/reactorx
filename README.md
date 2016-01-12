@@ -68,12 +68,10 @@ store.subscribe( store => {
 ```
 
 ## Installation
-`reactorx` is built on top of [js-csp] (https://github.com/ubolonton/js-csp), which is included in the distribution, but you need to install [regenerator](https://facebook.github.io/regenerator/) anyway.
-
-This is because Safari (most notably) doesn't support generators/yield/etc., so we need to bake the support in.
+`reactorx` is built on top of [js-csp] (https://github.com/ubolonton/js-csp), which is included in the distribution.
 
 ```
-npm install --save reactorx regenerator
+npm install --save reactorx
 ```
 
 ## API
