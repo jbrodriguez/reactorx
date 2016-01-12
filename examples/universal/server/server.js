@@ -28,7 +28,7 @@ app.use( (req, res) => {
 	let store = createStore({counter}, actions)
 
 	store.subscribe( store => {
-		console.log('store: ', store)
+		// console.log('store: ', store)
 		const html = renderToString(<App store={store} />)
 	
 		res.set("Content-Type", "text/html")
