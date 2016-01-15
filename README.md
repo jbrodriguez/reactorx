@@ -9,6 +9,11 @@ reactorx
 - Pragmatic: Very practical and terse. No boilerplate.
 - Universal/Isomorphic and works with react-native.
 
+## Diagram
+![Diagram](reactorx-chart.png)
+
+Unidirectional flow, state access is sequentialized by the underlying [js-csp](https://github.com/ubolonton/js-csp) library.
+
 ## Usage
 
 Let's recreate the counter example
@@ -68,9 +73,9 @@ store.subscribe( store => {
 ```
 
 ## Installation
-`reactorx` is built on top of [js-csp] (https://github.com/ubolonton/js-csp), which is included in the distribution, but you still need to install [regenerator](https://facebook.github.io/regenerator/).
+`reactorx` is built on top of [js-csp](https://github.com/ubolonton/js-csp), which is included in the distribution, but you still need to install [regenerator](https://facebook.github.io/regenerator/).
 
-This is because Safari (most notably) doesn't support yet generators/yields/etc., so we need to bake in the support for those features.
+This is because Safari (most notably) doesn't support generators/yields/etc. yet, so we need to bake in the support for those features.
 
 ```
 npm install --save reactorx regenerator
