@@ -1,6 +1,6 @@
 {
   "name": "reactorx",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "CSP Reactive flux implementation",
   "author": {
     "name": "Juan B. Rodriguez"

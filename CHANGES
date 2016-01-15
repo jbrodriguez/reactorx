@@ -1,3 +1,11 @@
+Version 0.5.4 - 2016-01-15
+    - Add babelrc and fix node invocation in examples
+    - Add flow chart
+    - Adjust copy
+    - Include correct chart image
+    Release 0.5.4
+
+
 Version 0.5.3 - 2016-01-12
     - Update dependency in README
     - Update examples to use npm version of reactorx
