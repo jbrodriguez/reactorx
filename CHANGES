@@ -1,3 +1,10 @@
+Version 0.6.0 - 2016-07-28
+    Remove unneeded folders
+    Fix examples and tests
+    Use babel-polyfill rather than regenerator
+    Bump package version
+
+
 Version 0.5.4 - 2016-01-15
     - Add babelrc and fix node invocation in examples
     - Add flow chart
