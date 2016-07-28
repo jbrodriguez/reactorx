@@ -10,6 +10,7 @@
     "start": "node --harmony server/index.js",
   },
   "dependencies": {
+    "babel-polyfill": "6.9.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "reactorx": "^0.5.3"

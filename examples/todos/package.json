@@ -11,6 +11,7 @@
     "build": "NODE_ENV=production webpack --config ./webpack.production.config.js --progress --profile --colors"
   },
   "dependencies": {
+    "babel-polyfill": "6.9.1",
     "classnames": "^2.2.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",

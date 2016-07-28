@@ -32,14 +32,14 @@ let initialState = {
 // actions are defined as methods of an object
 let actions = {
     increment: ({state, actions}, delta) => {
-        return { 
-            ...state, 
+        return {
+            ...state,
             counter: state.counter+delta
         }
     },
 
     decrement: ({state, actions}) => {
-        return { 
+        return {
             ...state,
             counter: state.counter-1
         }
@@ -73,12 +73,16 @@ store.subscribe( store => {
 ```
 
 ## Installation
-`reactorx` is built on top of [js-csp](https://github.com/ubolonton/js-csp), which is included in the distribution, but you still need to install [regenerator](https://facebook.github.io/regenerator/).
+`reactorx` is built on top of [js-csp](https://github.com/ubolonton/js-csp), which is included in the distribution.
 
-This is because Safari (most notably) doesn't support generators/yields/etc. yet, so we need to bake in the support for those features.
+You still need to install babel-polyfill (npm install --save babel-polyfill).
+
+This is because Safari (most notably) doesn't support generators yet, so we need to bake in the support for those features.
 
 ```
-npm install --save reactorx regenerator
+import 'babel-polyfill'
+// then
+import React from 'react'
 ```
 
 ## API
@@ -200,7 +204,7 @@ app.use( (req, res) => {
 
     store.subscribe( store => {
         const html = renderToString(<App store={store} />)
-    
+
         res.set("Content-Type", "text/html")
         res.send(`
             <!doctype html>
@@ -238,7 +242,7 @@ store.subscribe( store => {
 ## Examples
 Check the [examples](examples/) folder for additional demos.
 
-[unBALANCE](https://github.com/jbrodriguez/unbalance) is an app that uses `reactorx`. Check the code for a real world example. 
+[unBALANCE](https://github.com/jbrodriguez/unbalance) is an app that uses `reactorx`. Check the code for a real world example.
 
 ## License
 MIT

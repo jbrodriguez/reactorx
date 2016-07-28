@@ -1,1 +1,1 @@
-module.exports = require("./dist/reactorx")
+module.exports = require("./src/reactorx")
