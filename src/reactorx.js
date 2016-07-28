@@ -1,4 +1,4 @@
-var regeneratorRuntime = require("regenerator/runtime")
+require("babel-polyfill")
 var csp = require("./js-csp/csp")
 // var csp = require("js-csp")
 
