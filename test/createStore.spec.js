@@ -1,3 +1,5 @@
+import 'babel-polyfill'
+
 import { expect } from 'chai'
 import { createStore } from '../src/reactorx'
 import { subscribe } from './utils'
@@ -8,14 +10,14 @@ let initialState = {
 
 let actions = {
 	increment: ({state, actions}, delta) => {
-		return { 
-			...state, 
+		return {
+			...state,
 			counter: state.counter+delta
 		}
 	},
 
 	decrement: ({state, actions}) => {
-		return { 
+		return {
 			...state,
 			counter: state.counter-1
 		}
