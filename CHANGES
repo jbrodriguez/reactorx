@@ -1,3 +1,7 @@
+Version 0.6.4 - 2016-07-29
+- Use js-csp fork that is compiled to es5
+
+
 Version 0.6.3 - 2016-07-29
 - Compile the source to es5 before publishing
 
