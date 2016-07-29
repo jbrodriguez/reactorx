@@ -23,7 +23,7 @@
     "prepublish": "npm run compile"
   },
   "dependencies": {
-    "js-csp": "github:sigmapoint/js-csp#4edb23e"
+    "js-csp": "github:jbrodriguez/js-csp#25e3c39"
   },
   "devDependencies": {
     "babel-cli": "6.11.4",
@@ -47,10 +47,10 @@
   ],
   "files": [
     "lib",
-	"CHANGES",
-	"LICENSE",
-	"reactorx-chart.png",
-	"README.md",
-	"VERSION"
+    "CHANGES",
+    "LICENSE",
+    "reactorx-chart.png",
+    "README.md",
+    "VERSION"
   ]
 }
