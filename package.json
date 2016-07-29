@@ -20,10 +20,10 @@
     "compile": "babel --presets es2015,stage-2 --plugins transform-runtime -d lib/ src/",
     "clean": "rimraf lib && rimraf tmp",
     "test": "npm run compile && mocha --compilers js:babel-core/register --recursive",
-	"prepublish": "npm run compile"
+    "prepublish": "npm run compile"
   },
   "dependencies": {
-    "js-csp": "0.5.0"
+    "js-csp": "github:sigmapoint/js-csp#4edb23e"
   },
   "devDependencies": {
     "babel-cli": "6.11.4",
@@ -44,5 +44,13 @@
     {
       "name": "jbrodriguez"
     }
+  ],
+  "files": [
+    "lib",
+	"CHANGES",
+	"LICENSE",
+	"reactorx-chart.png",
+	"README.md",
+	"VERSION"
   ]
 }
