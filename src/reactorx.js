@@ -1,4 +1,3 @@
-require("babel-polyfill")
 var csp = require("js-csp")
 
 module.exports = {

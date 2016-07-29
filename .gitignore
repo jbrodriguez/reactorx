@@ -1,8 +1,7 @@
 node_modules
 tmp
 .module-cache/
-src/js-csp/
+dist
 
 *.out
 *.log
-
