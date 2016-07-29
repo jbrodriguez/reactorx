@@ -1,6 +1,5 @@
 require("babel-polyfill")
-var csp = require("./js-csp/csp")
-// var csp = require("js-csp")
+var csp = require("js-csp")
 
 module.exports = {
 	createStore,

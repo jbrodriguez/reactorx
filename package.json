@@ -41,6 +41,6 @@
   ],
   "dependencies": {
     "babel-polyfill": "6.9.1",
-	"js-csp": "^0.5.0"
+	"js-csp": "0.5.0"
   }
 }
