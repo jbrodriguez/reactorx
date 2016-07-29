@@ -1,3 +1,7 @@
+Version 0.6.3 - 2016-07-29
+- Compile the source to es5 before publishing
+
+
 Version 0.6.2 - 2016-07-28
 - Fix require statement
 
